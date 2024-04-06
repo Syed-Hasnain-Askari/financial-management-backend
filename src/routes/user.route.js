@@ -11,13 +11,9 @@ const {
   verifyEmail,
   forgetPasswordEmail
 } = require("../controller/user.controller.js");
-const multer = require("multer");
-const uploadDirectory = process.env.UPLOAD_DIRECTORY || "uploads/";
-const upload = multer({ dest: uploadDirectory });
 const verifyJWT = require("../middleware/auth.middleware.js");
-
 const router = Router();
-router.post("/register", upload.single("avatar"), registerUser);
+router.post("/register", registerUser);
 router.route("/login").post(loginUser);
 router.route("/email-verify/:token").get(verifyEmail);
 router.route("/forget-password").post(forgetPasswordEmail);
