@@ -5,17 +5,21 @@ const { ApiResponse } = require("../utils/ApiResponse");
 const getExpense = async (req, res) => {
   const UserId = req.params.UserId; // Assuming userId is passed as a string
   try {
-    const expense = await Expense.find({ UserId });
-    if (income.length === 0) {
-      return res.status(404).json({ message: "User does not exists" });
+    const expenses = await Expense.find({ UserId });
+
+    if (expenses.length === 0) {
+      // If no records found, return an empty array
+      return res.status(200).json(new ApiResponse(200, [], "No expenses found"));
     }
-    console.log(expense, "expense====");
-    return res.status(200).json(new ApiResponse(200, expense, "Your Expense"));
+
+    // If records found, return the expenses
+    return res.status(200).json(new ApiResponse(200, expenses, "Your Expenses"));
   } catch (error) {
     console.log(error);
-    throw new ApiError(500, "Something went wrong while generating refresh and access tokens");
+    throw new ApiError(500, "Something went wrong while fetching expenses");
   }
 };
+
 const addExpense = async (req, res) => {
   const { monthly_rent, monthly_debts, debts_period, other_expense, UserId, total_expense } = req.body;
   console.log(monthly_rent, monthly_debts, debts_period, "monthly_rent, monthly_debts, debts_period");

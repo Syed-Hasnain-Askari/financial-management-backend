@@ -7,13 +7,14 @@ const getIncome = async (req, res) => {
   try {
     const income = await Income.find({ UserId });
     if (income.length === 0) {
-      return res.status(404).json({ message: "User does not exists" });
+      // If no records found, return an empty array
+      return res.status(200).json(new ApiResponse(200, [], "No expenses found"));
     }
     console.log(UserId, income, "income=====");
     return res.status(200).json(new ApiResponse(200, income, "Your income"));
   } catch (error) {
     console.log(error);
-    throw new ApiError(500, "Something went wrong while generating refresh and access tokens");
+    throw new ApiError(500, "Something went wrong while fetching expenses");
   }
 };
 
