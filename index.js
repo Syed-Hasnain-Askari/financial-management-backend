@@ -1,6 +1,7 @@
+"use strict";
 const dotenv = require("dotenv");
 const { connectDB } = require("./src/db");
-const app = require("./app");
+const app = require("./app.js");
 dotenv.config();
 connectDB()
   .then(() => {
