@@ -33,7 +33,7 @@ const addExpense = async (req, res) => {
       debts_period,
       other_expense,
       total_expense,
-      UserId
+      UserId: String(UserId)
     });
     return res.status(201).json(new ApiResponse(200, expense, "Expense has been created"));
   } catch (error) {
