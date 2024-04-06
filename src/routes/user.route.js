@@ -12,7 +12,8 @@ const {
   forgetPasswordEmail
 } = require("../controller/user.controller.js");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const uploadDirectory = process.env.UPLOAD_DIRECTORY || "uploads/";
+const upload = multer({ dest: uploadDirectory });
 const verifyJWT = require("../middleware/auth.middleware.js");
 
 const router = Router();
