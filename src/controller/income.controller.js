@@ -2,6 +2,7 @@ const Income = require("../models/income.modal");
 const { ApiError } = require("../utils/ApiError");
 const mongoose = require("mongoose");
 const { ApiResponse } = require("../utils/ApiResponse");
+
 const getIncome = async (req, res) => {
   const UserId = req.params.UserId;
   try {
@@ -39,17 +40,19 @@ const addIncome = async (req, res) => {
 };
 const editIncome = async (req, res) => {
   const UserId = req.params.UserId;
-  const { monthly_rent, monthly_debts, debts_period, other_expense, total_expense } = req.body;
+  const { monthly_income, date, extra_income, total_income } = req.body;
+  console.log(req.body, "req.body");
   try {
-    if (!monthly_rent || !monthly_debts || !debts_period) {
+    if (!monthly_income || !date || !extra_income || !total_income) {
       throw new ApiError(400, "Fields are required");
     }
     // Find the expense document by UserId and update it
     const expense = await Income.findOneAndUpdate(
       { UserId: UserId }, // Filter condition
-      { monthly_rent, monthly_debts, debts_period, other_expense, total_expense }, // Update fields
+      { monthly_income, date, extra_income, total_income }, // Update fields
       { new: true } // Return the updated document
     );
+    console.log(expense, "expense======");
     if (!expense) {
       throw new ApiError(404, "Expense not found");
     }

@@ -50,7 +50,7 @@ const editExpense = async (req, res) => {
     }
     // Find the expense document by UserId and update it
     const expense = await Expense.findOneAndUpdate(
-      { UserId: UserId }, // Filter condition
+      { UserId: String(UserId) }, // Filter condition
       { monthly_rent, monthly_debts, debts_period, other_expense, total_expense }, // Update fields
       { new: true } // Return the updated document
     );
