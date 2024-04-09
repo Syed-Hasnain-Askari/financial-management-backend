@@ -5,13 +5,13 @@ const { ApiResponse } = require("../utils/ApiResponse");
 
 const getIncome = async (req, res) => {
   const UserId = req.params.UserId;
+  console.log(typeof UserId);
   try {
     const income = await Income.find({ UserId });
     if (income.length === 0) {
       // If no records found, return an empty array
       return res.status(200).json(new ApiResponse(200, [], "No expenses found"));
     }
-    console.log(UserId, income, "income=====");
     return res.status(200).json(new ApiResponse(200, income, "Your income"));
   } catch (error) {
     console.log(error);

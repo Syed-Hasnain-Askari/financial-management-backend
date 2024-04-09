@@ -28,7 +28,7 @@ const addGoal = async (req, res) => {
       price,
       percentage,
       timeto_take,
-      UserId,
+      UserId: String(UserId),
       monthly_saving
     });
     return res.status(201).json(new ApiResponse(200, goal, "Goal has been saved"));
@@ -46,7 +46,7 @@ const editGoal = async (req, res) => {
     }
     // Find the expense document by UserId and update it
     const goal = await Goal.findOneAndUpdate(
-      { UserId: UserId }, // Filter condition
+      { UserId: String(UserId) }, // Filter condition
       { name, price, percentage, monthly_saving }, // Update fields
       { new: true } // Return the updated document
     );
