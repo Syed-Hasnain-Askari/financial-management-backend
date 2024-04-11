@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     username: username.toLowerCase(),
-    avatar: upload?.url,
+    avatar: upload,
     verificationToken: token
   });
 
